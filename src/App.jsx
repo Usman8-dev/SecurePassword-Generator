@@ -11,7 +11,7 @@ function App() {
   const [Char_Clicked, setChar_Clicked] = useState(false);
 
   // useRef hook
-  const passwordReference = useRef(null)
+  const passwordReference = useRef(null);
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -26,17 +26,16 @@ function App() {
 
     for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * string.length + 1);
-      pass = pass+string.charAt(char);
+      pass = pass + string.charAt(char);
     }
 
     setpassword(pass);
-
   }, [length, numberClicked, Char_Clicked, setpassword]);
 
-  const CopyPasswordToClipboard = ()=>{
-    passwordReference.current?.select()
-    window.navigator.clipboard.writeText(password)
-  }
+  const CopyPasswordToClipboard = () => {
+    passwordReference.current?.select();
+    window.navigator.clipboard.writeText(password);
+  };
 
   useEffect(() => {
     passwordGenerator();
@@ -58,9 +57,10 @@ function App() {
             className="flex-1 bg-transparent outline-none px-4 py-3 text-black"
             ref={passwordReference}
           />
-          <button onClick={CopyPasswordToClipboard}
-          className="bg-blue-600 hover:bg-blue-500 transition-colors px-5 py-3 rounded-xl border border-blue-500 font-medium cursor-pointer">
-        
+          <button
+            onClick={CopyPasswordToClipboard}
+            className="bg-blue-600 hover:bg-blue-500 transition-colors px-5 py-3 rounded-xl border border-blue-500 font-medium cursor-pointer"
+          >
             Copy
           </button>
         </div>
@@ -77,7 +77,9 @@ function App() {
               }}
             />
 
-            <label className="text-blue-300 p-2 text-lg">Length: {length}</label>
+            <label className="text-blue-300 p-2 text-lg">
+              Length: {length}
+            </label>
           </div>
 
           <div className="mt-4">
