@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [password, setpassword] = useState("abc589yts");
+
+  const randomPassword = () => {
+
+    const randomStr = Math.random().toString(36).slice(2);
+    setpassword(randomStr);
+  };
 
   return (
-    <>
-     <h1 className='bg-zinc-800 text-white h-screen text-center p-10 text-3xl'>Password Generator</h1>
-    </>
-  )
+    <div className="h-screen text-center p-10 text-3xl">
+      <h1>Password Generator</h1>
+
+      <div className="bg-blue-400">{password}</div>
+      <button onClick={randomPassword} className="border-4 rounded-3xl bg-green-500 p-3 my-2" >Generate</button>
+    </div>
+  );
 }
 
-export default App
+export default App;
