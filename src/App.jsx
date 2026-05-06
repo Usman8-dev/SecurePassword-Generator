@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function App() {
   // for password
@@ -10,10 +10,8 @@ function App() {
   // for character clicked
   const [Char_Clicked, setChar_Clicked] = useState(false);
 
-  // const randomPassword = () => {
-  //   const randomStr = Math.random().toString(36).slice(2);
-  //   setpassword(randomStr);
-  // };
+  // useRef hook
+  const passwordReference = useRef(null)
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -26,13 +24,23 @@ function App() {
       string = string + "!@#$%^&*{()}|?";
     }
 
-    for (let i = 1; i <= array.length; i++) {
+    for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * string.length + 1);
-      pass = string.charAt(char);
+      pass = pass+string.charAt(char);
     }
 
     setpassword(pass);
+
   }, [length, numberClicked, Char_Clicked, setpassword]);
+
+  const CopyPasswordToClipboard = ()=>{
+    passwordReference.current?.select()
+    window.navigator.clipboard.writeText(password)
+  }
+
+  useEffect(() => {
+    passwordGenerator();
+  }, [length, numberClicked, Char_Clicked, passwordGenerator]);
 
   return (
     <div className="bg-black h-screen">
@@ -41,15 +49,18 @@ function App() {
       </h1>
 
       <div className="bg-gray-600 w-full text-white max-w-md mx-auto rounded-3xl p-5">
-        <div className="flex items-center gap-3 bg-gray-700 rounded-2xl p-2">
+        <div className="flex items-center gap-3 bg-gray-100 rounded-2xl p-2">
           <input
             type="text"
             value={password}
             placeholder="Password"
             readOnly
-            className="flex-1 bg-transparent outline-none px-4 py-3 text-white"
+            className="flex-1 bg-transparent outline-none px-4 py-3 text-black"
+            ref={passwordReference}
           />
-          <button className="bg-blue-600 hover:bg-blue-500 transition-colors px-5 py-3 rounded-xl border border-blue-500 font-medium cursor-pointer">
+          <button onClick={CopyPasswordToClipboard}
+          className="bg-blue-600 hover:bg-blue-500 transition-colors px-5 py-3 rounded-xl border border-blue-500 font-medium cursor-pointer">
+        
             Copy
           </button>
         </div>
@@ -66,7 +77,7 @@ function App() {
               }}
             />
 
-            <label className="text-blue-300 p-2">Length: {length}</label>
+            <label className="text-blue-300 p-2 text-lg">Length: {length}</label>
           </div>
 
           <div className="mt-4">
@@ -79,8 +90,9 @@ function App() {
               }}
             />
 
-            <label htmlFor="numberInput" className="text-blue-300 p-2">Number</label>
-            
+            <label htmlFor="numberInput" className="text-blue-300 p-2 text-lg">
+              Number
+            </label>
           </div>
           <div className="mt-4">
             <input
@@ -92,8 +104,9 @@ function App() {
               }}
             />
 
-            <label htmlFor="charInput" className="text-blue-300 p-2">Character</label>
-            
+            <label htmlFor="charInput" className="text-blue-300 p-2 text-lg">
+              Character
+            </label>
           </div>
         </div>
       </div>
