@@ -61,10 +61,39 @@ function App() {
               max={50}
               value={length}
               className="cursor-pointer"
-              onChange={(e)=>{setlength(e.target.value)}}
+              onChange={(e) => {
+                setlength(e.target.value);
+              }}
             />
 
             <label className="text-blue-300 p-2">Length: {length}</label>
+          </div>
+
+          <div className="mt-4">
+            <input
+              type="checkbox"
+              defaultChecked={numberClicked}
+              id="numberInput"
+              onChange={() => {
+                setnumberClicked((prev) => !prev);
+              }}
+            />
+
+            <label htmlFor="numberInput" className="text-blue-300 p-2">Number</label>
+            
+          </div>
+          <div className="mt-4">
+            <input
+              type="checkbox"
+              defaultChecked={Char_Clicked}
+              id="charInput"
+              onChange={() => {
+                setChar_Clicked((prev) => !prev);
+              }}
+            />
+
+            <label htmlFor="charInput" className="text-blue-300 p-2">Character</label>
+            
           </div>
         </div>
       </div>
